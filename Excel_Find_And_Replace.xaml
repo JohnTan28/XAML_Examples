@@ -1,0 +1,153 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:moie="clr-namespace:Microsoft.Office.Interop.Excel;assembly=Microsoft.Office.Interop.Excel" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="In_Text_To_ReplaceWith" Type="InArgument(x:String)" />
+    <x:Property Name="In_FilePath" Type="InArgument(x:String)" />
+    <x:Property Name="In_SheetName" Type="InArgument(x:String)" />
+    <x:Property Name="Out_List_CellAddress" Type="OutArgument(scg:List(x:String))" />
+    <x:Property Name="In_Text_To_SearchFor" Type="InArgument(x:String)" />
+    <x:Property Name="In_Replace_Text_Flag" Type="InArgument(x:Boolean)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1035.33333333333,901.333333333333</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="42">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>Microsoft.Office.Interop.Excel</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="30">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>Microsoft.Office.Interop.Excel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="This activity finds all the occurrence of the text being searched for in excel and optionally replaces all the occurrence of the text with the desired text. If you want to replace the text then change flag &quot;In_Replace_Text_Flag&quot; to True. It will return the list of cells value was found or replaced." sap:VirtualizedContainerService.HintSize="480.666666666667,836.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_6">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">False</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message - Start of the process" sap:VirtualizedContainerService.HintSize="438.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Start Find and replace&quot;]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:LogMessage>
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.666666666667,610" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <TryCatch.Try>
+        <Sequence sap:VirtualizedContainerService.HintSize="376,348.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Delay DisplayName="Delay - for 1 Sec" Duration="00:00:01" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Delay_2" />
+          <ui:InvokeCode sap2010:Annotation.AnnotationText="" Code="app = New Microsoft.Office.Interop.Excel.ApplicationClass&#xA;app.DisplayAlerts=False&#xA;workbook= app.Workbooks.Open(file.Trim)&#xA;worksheet = CType(workbook.Worksheets(sheet.Trim),Microsoft.Office.Interop.Excel.Worksheet)&#xA;ListOfCellAddress = New List(Of String)&#xA;&#xA;Console.WriteLine(&quot;Finding Values&quot;)&#xA;&#xA;Do While Not (worksheet .Cells.find(What:=findWhat, After:=app.ActiveCell,LookAt:=LookAt.xlPart, SearchOrder:=SearchOrder.xlByRows, SearchDirection:=xlDirection.xlNext, MatchCase:=False, SearchFormat:=False) Is Nothing)&#xA;    worksheet.Cells.Find(What:=findWhat, After:=app.ActiveCell,LookAt:=LookAt.xlPart, SearchOrder:=SearchOrder.xlByRows, SearchDirection:=xlDirection.xlNext, MatchCase:=False, SearchFormat:=False).Activate&#xA;&#x9;If ListOfCellAddress.IndexOf(app.ActiveCell.Address)  =-1&#xA;&#x9;  ListOfCellAddress.Add(&quot;&quot;+app.ActiveCell.Address+&quot;&quot;)&#xA; &#x9;Else&#xA;&#x9;&#x9;Exit Do&#xA;&#x9;End If&#xA;Loop&#xA;If(ListOfCellAddress.Count&gt;0)&#xA;&#x9;Console.WriteLine(ListOfCellAddress.Count.ToString + &quot; values found.&quot;)&#xA;&#x9;&#xA;   If (replaceText = True)&#xA;&#x9;   Console.WriteLine(&quot;Replacing Values&quot;)&#xA;&#x9;&#x9;Do While Not (worksheet .Cells.find(What:=findWhat, After:=app.ActiveCell,LookAt:=LookAt.xlPart, SearchOrder:=SearchOrder.xlByRows, SearchDirection:=xlDirection.xlNext, MatchCase:=False, SearchFormat:=False) Is Nothing)&#xA;&#x9;&#x9;&#x9; app.ActiveCell.Replace(What:=findWhat, Replacement:=replaceWith,LookAt:=LookAt.xlPart, SearchOrder:=SearchOrder.xlByRows, MatchCase:=False, SearchFormat:=False,ReplaceFormat:=False)&#xA;    &#x9;Loop&#x9;&#xA;&#x9;&#x9;Console.WriteLine(ListOfCellAddress.Count.ToString  + &quot; values replaced&quot;)&#xA;&#x9;Else&#xA;&#x9;&#x9;Console.WriteLine(&quot;Values not replaced as flag is false.&quot;)&#xA;&#x9;End If&#xA;&#xA;Else&#xA;&#x9;&#x9;Console.WriteLine(&quot;No matching values found.&quot;)&#xA;End If&#xA;&#xA;workbook.Save()&#xA;workbook.Close()&#xA;app.Quit()" ContinueOnError="False" DisplayName="Invoke code to Find &amp; Replace the text" sap:VirtualizedContainerService.HintSize="334,194.666666666667" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
+            <ui:InvokeCode.Arguments>
+              <InArgument x:TypeArguments="moie:Application" x:Key="app">[New Microsoft.Office.Interop.Excel.ApplicationClass]</InArgument>
+              <InArgument x:TypeArguments="moie:Workbook" x:Key="workbook" />
+              <InArgument x:TypeArguments="moie:Worksheet" x:Key="worksheet" />
+              <InArgument x:TypeArguments="x:String" x:Key="file">[In_FilePath]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="sheet">[In_SheetName]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="findWhat">[In_Text_To_SearchFor]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="replaceWith">[In_Text_To_ReplaceWith]</InArgument>
+              <InArgument x:TypeArguments="moie:XlSearchDirection" x:Key="xlDirection" />
+              <InArgument x:TypeArguments="moie:XlSearchOrder" x:Key="SearchOrder" />
+              <OutArgument x:TypeArguments="scg:List(x:String)" x:Key="ListOfCellAddress">[Out_List_CellAddress]</OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="columnName" />
+              <InArgument x:TypeArguments="x:Int32" x:Key="modulo" />
+              <InArgument x:TypeArguments="x:Boolean" x:Key="replaceText">[In_Replace_Text_Flag]</InArgument>
+              <InArgument x:TypeArguments="moie:XlLookAt" x:Key="LookAt" />
+            </ui:InvokeCode.Arguments>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:InvokeCode>
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:SystemException" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:SystemException">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:SystemException" Name="exception" />
+            </ActivityAction.Argument>
+            <Rethrow sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Rethrow_3" />
+          </ActivityAction>
+        </Catch>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_4">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <Rethrow sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Rethrow_4" />
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+  </Sequence>
+</Activity>
